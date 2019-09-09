@@ -8,7 +8,8 @@ const Navigation = () => {
 		<div className="navigation">
 			<NavLink to="/">Products</NavLink>
 			<NavLink to="/cart">
-				Cart <span>{cart.length}</span>
+				{/* {HAD TO UPDATE THE OBJECT LENGTH HERE SINCE I ADDED THE ITEM.REMOVE METHOD.} */}
+				Cart <span>{Object.keys(cart.cart).length}</span>
 			</NavLink>
 		</div>
 	);
