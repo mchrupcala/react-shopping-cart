@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Route } from 'react-router-dom';
 import data from './data';
 
@@ -12,13 +12,23 @@ import { CartContext } from './contexts/CartContext';
 
 function App() {
 	const [products] = useState(data);
-	const [cart, setCart] = useState([]);
+
+	// Stretch - added useEffect to store shopping cart locally.
+	const [cart, setCart] = useState(() => {
+		const item = window.localStorage.getItem('user');
+		return item ? JSON.parse(item) : [];
+	});
+
+	useEffect(() => {
+		window.localStorage.setItem('user', JSON.stringify(cart))
+	}, [cart])
 
 	const addItem = item => {
 		setCart([...cart, item]);
 		console.log('Picked item is: ', item);
 	};
 
+	//Stretch - removeItem method will delete shopping cart items.
 	const removeItem = item => {
 		setCart([...cart].filter(num => (num.id !== item.id)));
 	};
